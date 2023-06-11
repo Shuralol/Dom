@@ -6,22 +6,17 @@ function getRandomIndex(min, max) {
 
 function moveCharacter() {
   const gameTiles = document.querySelectorAll(".game-tile");
+  const currentCharacter = document.querySelector(".character-image");
 
-  let randomIndex = getRandomIndex(0, gameTiles.length - 1);
-
-  const currentCharacterIndex = Array.from(gameTiles).findIndex((tile) => {
-    return tile.classList.contains("character-image");
+  const availableTiles = Array.from(gameTiles).filter((tile) => {
+    return !tile.classList.contains("character-image");
   });
 
-  while (randomIndex === currentCharacterIndex) {
-    randomIndex = getRandomIndex(0, gameTiles.length - 1);
-  }
+  const randomIndex = getRandomIndex(0, availableTiles.length - 1);
+  const newCharacterTile = availableTiles[randomIndex];
 
-  gameTiles.forEach((tile) => {
-    tile.classList.remove("character-image");
-  });
-
-  gameTiles[randomIndex].classList.add("character-image");
+  currentCharacter.classList.remove("character-image");
+  newCharacterTile.classList.add("character-image");
 }
 
 setInterval(moveCharacter, 3000);
