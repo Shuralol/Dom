@@ -6,8 +6,8 @@
   "scripts": {
     "lint": "eslint",
     "start": "webpack serve --mode development",
-    "build": "webpack --mode production",
-    "test": "zalupa-mode"
+    "build": "webpack --mode production"
+    
   },
   "author": "",
   "license": "ISC",
