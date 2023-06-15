@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint",
-   
-    "build": "webpack --mode production"
+    "start": "webpack serve --mode development",
+    "build": "webpack --mode production",
+    "test": "zalupa-mode"
   },
   "author": "",
   "license": "ISC",
