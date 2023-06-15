@@ -1,4 +1,13 @@
-import "../js/app.js";
+/* import "../js/app.js"; */
+
+function createCharacterElement() {
+  const characterImage = document.createElement("img");
+  characterImage.classList.add("character-image");
+  characterImage.src = "./img/goblin.png";
+  characterImage.alt = "Character Image";
+  
+  return characterImage;
+}
 
 function getRandomIndex(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -7,6 +16,7 @@ function getRandomIndex(min, max) {
 function moveCharacter() {
   const gameTiles = document.querySelectorAll(".game-tile");
   const currentCharacter = document.querySelector(".character-image");
+  const parentElement = currentCharacter.parentElement;
 
   const availableTiles = Array.from(gameTiles).filter((tile) => {
     return !tile.classList.contains("character-image");
@@ -15,7 +25,8 @@ function moveCharacter() {
   const randomIndex = getRandomIndex(0, availableTiles.length - 1);
   const newCharacterTile = availableTiles[randomIndex];
 
-  currentCharacter.classList.remove("character-image");
+  currentCharacter.remove();
+  parentElement.appendChild(createCharacterElement());
   newCharacterTile.classList.add("character-image");
 }
 

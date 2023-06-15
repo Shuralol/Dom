@@ -1,14 +1,17 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
-  entry: './src/index.js', // точка входа вашего приложения
+    mode: 'development',
+  entry: './src/index.js',
   output: {
-    filename: 'bundle.js', // имя выходного файла
-    path: path.resolve(__dirname, 'dist'), // путь к папке, где будет сгенерирована сборка
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
   },
   module: {
     rules: [
-      // правила загрузки файлов
+      
       {
         test: /\.(png|jpg|gif)$/,
         use: [
@@ -21,15 +24,24 @@ module.exports = {
           },
         ],
       },
-      // правила загрузки стилей
+     
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'index.html',
+    }),
+    new MiniCssExtractPlugin({
+      filename: 'index.css',
+    }),
+  ],
   devServer: {
-    static: path.resolve(__dirname, 'dist'), // путь к папке сборки для dev server
-    port: 8080, // порт для dev server
+    static: path.resolve(__dirname, 'dist'),
+    port: 8080,
   },
 };
