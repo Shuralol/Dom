@@ -1,5 +1,6 @@
 /* import "../js/app.js"; */
 
+
 function createCharacterElement() {
   const characterImage = document.createElement("img");
   characterImage.classList.add("character-image");
@@ -16,18 +17,23 @@ function getRandomIndex(min, max) {
 function moveCharacter() {
   const gameTiles = document.querySelectorAll(".game-tile");
   const currentCharacter = document.querySelector(".character-image");
-  const parentElement = currentCharacter.parentElement;
 
-  const availableTiles = Array.from(gameTiles).filter((tile) => {
-    return !tile.classList.contains("character-image");
-  });
+  if (currentCharacter && currentCharacter.parentElement) {
+    const parentElement = currentCharacter.parentElement;
 
-  const randomIndex = getRandomIndex(0, availableTiles.length - 1);
-  const newCharacterTile = availableTiles[randomIndex];
+    const availableTiles = Array.from(gameTiles).filter((tile) => {
+      return !tile.classList.contains("character-image");
+    });
 
-  currentCharacter.remove();
-  parentElement.appendChild(createCharacterElement());
-  newCharacterTile.classList.add("character-image");
+    if (availableTiles.length > 0) {
+      const randomIndex = getRandomIndex(0, availableTiles.length - 1);
+      const newCharacterTile = availableTiles[randomIndex];
+
+      currentCharacter.remove();
+      parentElement.appendChild(createCharacterElement());
+      newCharacterTile.classList.add("character-image");
+    }
+  }
 }
 
 setInterval(moveCharacter, 3000);
