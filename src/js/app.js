@@ -1,30 +1,22 @@
-const tableCells = document.querySelectorAll('.table-cell');
-const characterImage = createCharacterElement();
-let lastTargetIndex = getRandomIndex(0, tableCells.length - 1);
+import goblin from "../img/goblin.png";
+const getRandomIndex = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+const cells = document.querySelectorAll(".game-tile");
+let randomIndex = getRandomIndex(0, cells.length - 1);
 
-function removeCharacter() {
-  tableCells[lastTargetIndex].innerHTML = '';
-}
+const image = createCharacterElement();
 
-function appendCharacter() {
-  const randomIndex = getRandomIndex(0, tableCells.length - 1);
-  tableCells[randomIndex].appendChild(characterImage);
-  lastTargetIndex = randomIndex;
+function createCharacterElement() {
+  const characterImage = document.createElement("img");
+  characterImage.classList.add("character-image");
+  characterImage.src = goblin;
+  characterImage.alt = "Character Image";
+
+  return characterImage;
 }
 
 function moveCharacter() {
-  removeCharacter();
-  appendCharacter();
+  cells[getRandomIndex(0, cells.length - 1)].append(image);
 }
 
-tableCells.forEach((cell) => {
-  cell.addEventListener('click', () => {
-    if (cell.classList.contains('active')) {
-      clearTimeout(timeout);
-      moveCharacter();
-      timeout = setTimeout(intervalHandler, 1000);
-    }
-  });
-});
-
-let timeout = setTimeout(intervalHandler, 1000);
+setInterval(moveCharacter, 1000);

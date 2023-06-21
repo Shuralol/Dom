@@ -41,8 +41,8 @@ module.exports = {
     }),
   ],
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    hot: true,
+   /*  contentBase: path.resolve(__dirname, 'dist'),
+    hot: true, */
     port: 8080,
   },
 };

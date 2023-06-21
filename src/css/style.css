@@ -13,6 +13,7 @@ body {
   .game-tile {
     width: 100px;
     height: 100px;
+    box-sizing: border-box;
     background-color: #eaeaea;
     border: 1px solid #ccc;
     display: flex;
