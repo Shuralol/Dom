@@ -1,39 +1,30 @@
-/* import "../js/app.js"; */
+const tableCells = document.querySelectorAll('.table-cell');
+const characterImage = createCharacterElement();
+let lastTargetIndex = getRandomIndex(0, tableCells.length - 1);
 
-
-function createCharacterElement() {
-  const characterImage = document.createElement("img");
-  characterImage.classList.add("character-image");
-  characterImage.src = "./img/goblin.png";
-  characterImage.alt = "Character Image";
-  
-  return characterImage;
+function removeCharacter() {
+  tableCells[lastTargetIndex].innerHTML = '';
 }
 
-function getRandomIndex(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+function appendCharacter() {
+  const randomIndex = getRandomIndex(0, tableCells.length - 1);
+  tableCells[randomIndex].appendChild(characterImage);
+  lastTargetIndex = randomIndex;
 }
 
 function moveCharacter() {
-  const gameTiles = document.querySelectorAll(".game-tile");
-  const currentCharacter = document.querySelector(".character-image");
-
-  if (currentCharacter && currentCharacter.parentElement) {
-    const parentElement = currentCharacter.parentElement;
-
-    const availableTiles = Array.from(gameTiles).filter((tile) => {
-      return !tile.classList.contains("character-image");
-    });
-
-    if (availableTiles.length > 0) {
-      const randomIndex = getRandomIndex(0, availableTiles.length - 1);
-      const newCharacterTile = availableTiles[randomIndex];
-
-      currentCharacter.remove();
-      parentElement.appendChild(createCharacterElement());
-      newCharacterTile.classList.add("character-image");
-    }
-  }
+  removeCharacter();
+  appendCharacter();
 }
 
-setInterval(moveCharacter, 3000);
+tableCells.forEach((cell) => {
+  cell.addEventListener('click', () => {
+    if (cell.classList.contains('active')) {
+      clearTimeout(timeout);
+      moveCharacter();
+      timeout = setTimeout(intervalHandler, 1000);
+    }
+  });
+});
+
+let timeout = setTimeout(intervalHandler, 1000);
